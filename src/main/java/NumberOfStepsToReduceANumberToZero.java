@@ -38,6 +38,9 @@
 public class NumberOfStepsToReduceANumberToZero {
 
     public int numberOfSteps(int num) {
+        if (num < 0) {
+            throw new IllegalArgumentException();
+        }
         int steps = 0;
         while (num > 0) {
             if (num % 2 == 0) {
@@ -49,5 +52,19 @@ public class NumberOfStepsToReduceANumberToZero {
             }
         }
         return steps;
+    }
+
+    public int numberOfStepsUsingCountingBits(int num) {
+        String binaryString = Integer.toBinaryString(num);
+        int steps = 0;
+        for (char bit : binaryString.toCharArray()) {
+            if (bit == '1') {
+                steps = steps + 2;
+            }
+            if (bit == '0') {
+                steps++;
+            }
+        }
+        return --steps;
     }
 }
