@@ -24,35 +24,23 @@
  * The number of nodes in the list is in the range [1, 100].
  * 1 <= Node.val <= 100
  */
-public class MiddleOfTheLinkedList {
+public class MiddleOfTheLinkedList_UsingSlowFastPointer {
     /**
      * Definition for singly-linked list.
      */
     public ListNode middleNode(ListNode head) {
-        if (head.next == null) {
-            return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        int size = 1;
-        ListNode tempNode = head;
-        while (tempNode.next != null) {
-            size++;
-            tempNode = tempNode.next;
-        }
-        int middlePos;
-        if (size % 2 == 0) {
-            middlePos = (size / 2);
-        } else {
-            middlePos = (size / 2);
-        }
-        for (int i = 0; i < middlePos; i++) {
-            head = head.next;
-        }
-        return head;
+        return slow;
     }
 
 
     public static void main(String[] args) {
-        int[] range = new int[]{1, 2, 3, 4, 5, 6, 7};
+        int[] range = new int[]{1, 2, 3, 4, 5};
         ListNode head = createListNode(range);
         ListNode workerHead = new MiddleOfTheLinkedList().middleNode(head);
         while (workerHead != null) {
@@ -78,22 +66,5 @@ public class MiddleOfTheLinkedList {
             workerHead = workerHead.next;
         }
         return head;
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {
-    }
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
     }
 }
